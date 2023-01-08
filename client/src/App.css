@@ -1,0 +1,197 @@
+body {
+  background-color: #282c34;
+}
+.App {
+  text-align: center;
+  width: 100%;
+}
+.App h1 {
+  color: azure;
+  font-size: 32px;
+  padding-top: 32px;
+}
+.App h3 {
+  color: azure;
+  font-size: 20px;
+  font-weight: 700;
+}
+.App #authenticator {
+  max-width: 900px;
+  width: 100%;
+  margin: 16px auto;
+}
+.App #authenticator .auth-options {
+  display: flex;
+  justify-content: center;
+  gap: auto;
+}
+.App #authenticator .auth-options #steam-id-form {
+  flex-basis: 40%;
+  text-align: left;
+}
+.App #authenticator .auth-options #steam-id-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 20px;
+  color: azure;
+}
+.App #authenticator .auth-options #steam-id-form .input-container {
+  display: flex;
+  align-items: center;
+}
+.App #authenticator .auth-options #steam-id-form .input-container #steam-id-input {
+  height: 30px;
+  width: 300px;
+  border-radius: 4px 0 0 4px;
+  border: none;
+  padding: 4px 8px;
+  background-color: azure;
+}
+.App #authenticator .auth-options #steam-id-form .input-container #steam-id-form-submit-btn {
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #07F;
+  border: none;
+  padding: 4px 8px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+  color: azure;
+}
+.App #authenticator .auth-options #steam-id-form .steam-id-form-hint {
+  margin-top: 4px;
+  font-style: italic;
+  color: azure;
+  font-size: 12px;
+}
+.App #authenticator .auth-options #steam-authenticator {
+  flex-basis: 40%;
+}
+.App #tier-list {
+  max-width: 900px;
+  width: 100%;
+  margin: 20px auto;
+}
+.App #tier-list .tier-list-game {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App #tier-list .tier-list-game span {
+  -webkit-text-stroke: 0.5px #111;
+  font-size: 24px;
+  font-weight: 800;
+  max-width: 100%;
+  word-wrap: break-word;
+  position: relative;
+  font-family: 'Impact';
+  color: azure;
+}
+.App #tier-list .tier-list-game img {
+  border-radius: 4px;
+  position: absolute;
+}
+.App #tier-list .tier-list-games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 auto;
+  justify-content: center;
+}
+.App #tier-list .tier-list-rows {
+  border-radius: 4px;
+  border: 1px #111 solid;
+  box-shadow: 0px 0px 4px 4px rgba(30, 30, 30, 0.6);
+}
+.App #tier-list .tier-list-rows .tier-list-row {
+  display: flex;
+}
+.App #tier-list .tier-list-rows .tier-list-row:not(:first-child) {
+  border-top: 1px #111 solid;
+}
+.App #tier-list .tier-list-rows .tier-list-row:nth-child(1) .tier-list-row-header {
+  background-color: orange;
+}
+.App #tier-list .tier-list-rows .tier-list-row:nth-child(2) .tier-list-row-header {
+  background-color: purple;
+}
+.App #tier-list .tier-list-rows .tier-list-row:nth-child(3) .tier-list-row-header {
+  background-color: blue;
+}
+.App #tier-list .tier-list-rows .tier-list-row:nth-child(4) .tier-list-row-header {
+  background-color: green;
+}
+.App #tier-list .tier-list-rows .tier-list-row:nth-child(5) .tier-list-row-header {
+  background-color: gray;
+}
+.App #tier-list .tier-list-rows .tier-list-row .tier-list-row-header {
+  width: 200px;
+  padding: 10px;
+  border-right: 1px #111 solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 700;
+  height: 120px;
+  background-color: azure;
+}
+.App #tier-list .tier-list-rows .tier-list-row .tier-list-row-games {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: lightgray;
+  width: 100%;
+}
+.App #tier-list .tier-list-rows .add-row-btn {
+  padding: 8px 0;
+  background-color: #07F;
+  color: azure;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.App #tier-list .tier-list-rows .add-row-btn:hover {
+  color: #ffffff;
+  background-color: #3392ff;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.App-link {
+  color: #61dafb;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
