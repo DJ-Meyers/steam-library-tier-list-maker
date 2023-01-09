@@ -5,7 +5,8 @@ import { tierlistReducer } from './tierlistReducer';
 export type TierlistState = {
     games: IGame[]
     rows: ITierlistRow[],
-    dragging: IGame | null
+    dragging: IGame | null,
+    dragSource: string,
 };
 
 
@@ -18,7 +19,8 @@ const initialState: TierlistState = {
         { tierName: "C", games: [] },
         { tierName: "D", games: [] },
     ],
-    dragging: null
+    dragging: null,
+    dragSource: '',
 };
 
 const TierlistContext = createContext<{

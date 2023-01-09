@@ -3,12 +3,12 @@ import { START_DRAGGING_GAME } from "../../context/dispatchTypes";
 import { TierlistContext } from "../../context/tierlist/tierlistContext";
 import { IGame } from "../../Types";
 
-const TierlistGame = ({ game }: { game: IGame }) => {
+const TierlistGame = ({ game, dragSource }: { game: IGame, dragSource: string }) => {
 
     const { dispatch } = useContext(TierlistContext);
 
     const dragHandler: DragEventHandler = (event: React.DragEvent) => {
-        dispatch({ type: START_DRAGGING_GAME, payload: game });
+        dispatch({ type: START_DRAGGING_GAME, payload: { data: game, source: dragSource } });
         event.dataTransfer.setData("text/plain", JSON.stringify(game));
         event.dataTransfer.effectAllowed = "move";
         document.getElementById(game.appid.toString())?.classList.add("dragging");

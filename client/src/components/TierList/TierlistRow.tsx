@@ -37,7 +37,7 @@ const TierlistRow = ({ row }: TierlistRowProps) => {
             </div>
             <div className="tier-list-row-games" id={`${row.tierName}-games`} onDrop={handleDrop} onDragOver={handleDragOver} >
                 {row.games.map((game: IGame, gameIndex) =>
-                    <TierlistGame game={game} key={game.appid} />
+                    <TierlistGame game={game} key={game.appid} dragSource={row.tierName} />
                 )}
             </div>
         </div>

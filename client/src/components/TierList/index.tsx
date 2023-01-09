@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth/authContext";
-import { SET_GAMES } from "../../context/dispatchTypes";
+import { DROP_GAME, SET_GAMES } from "../../context/dispatchTypes";
 import { TierlistContext } from "../../context/tierlist/tierlistContext";
 import TierlistGame from "./TierlistGame";
 import TierlistRow from "./TierlistRow";
@@ -20,6 +20,23 @@ const TierList = () => {
         dispatch({ type: SET_GAMES, payload: games });
         setIsLoading(false);
     }
+
+    const handleDrop: React.DragEventHandler = (event: React.DragEvent) => {
+        event.preventDefault();
+        const game = JSON.parse(event.dataTransfer.getData("text/plain"));
+        const gameElement = document.getElementById(game.appid.toString());
+        
+        if (gameElement) {
+            gameElement.classList.remove('dragging');
+            dispatch({ type: DROP_GAME, payload: { target: "__games__", data: game } });
+        }
+    } 
+    
+    const handleDragOver: React.DragEventHandler = (event: React.DragEvent) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+    }
+
     useEffect(() => {
         setIsLoading(true);
         fetchGames();
@@ -31,15 +48,15 @@ const TierList = () => {
     return (
         <div id="tier-list">
             <div className="tier-list-rows">
-                {tierlistState.rows.map((row, rowIndex) =>
+                {tierlistState.rows.map((row) =>
                     <TierlistRow row={row} key={row.tierName} />
                 )}
                 <div className="add-row-btn">+ Add Row</div>
             </div>
             <h3>My Games</h3>
-            <div className="tier-list-games">
-                {tierlistState.games.map((game, gameIndex) => 
-                    <TierlistGame game={game} key={game.appid} />
+            <div className="tier-list-games" onDrop={handleDrop} onDragOver={handleDragOver}>
+                {tierlistState.games.map((game) => 
+                    <TierlistGame game={game} key={game.appid} dragSource={"__games__"} />
                 )}
             </div>
         </div>
