@@ -94,6 +94,11 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: grab;
+
+      &.dragging {
+        cursor:grabbing;
+      }
 
       span {
         -webkit-text-stroke: .5px #111;
@@ -102,7 +107,7 @@ body {
         max-width: 100%;
         word-wrap: break-word;
         position: relative;
-        font-family: 'Impact';
+        font-family: 'Impact', sans-serif;
         color: azure;
       }
       img {
@@ -126,10 +131,8 @@ body {
 
       .tier-list-row {
         display: flex;
-
-        &:not(:first-child) {
-            border-top: 1px #111 solid;
-        }
+        border-bottom: 1px #111 solid;
+        
 
         &:nth-child(1) .tier-list-row-header {
           background-color: orange;
@@ -154,23 +157,24 @@ body {
 
         .tier-list-row-header {
           width: 200px;
-          padding: 10px;
           border-right: 1px #111 solid;
           display: flex;
           justify-content: center;
           align-items: center;
           font-size: 24px;
           font-weight: 700;
-          height: 120px;
+          min-height: 110px;
           background-color: azure;
         }
 
         .tier-list-row-games {
           padding: 10px;
+          min-height: 100px;
           display: flex;
           flex-wrap: wrap;
           background-color: lightgray;
           width: 100%;
+          gap: 10px;
         }
       }
 

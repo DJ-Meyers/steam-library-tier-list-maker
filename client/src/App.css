@@ -84,6 +84,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: grab;
+}
+.App #tier-list .tier-list-game.dragging {
+  cursor: grabbing;
 }
 .App #tier-list .tier-list-game span {
   -webkit-text-stroke: 0.5px #111;
@@ -92,7 +96,7 @@ body {
   max-width: 100%;
   word-wrap: break-word;
   position: relative;
-  font-family: 'Impact';
+  font-family: 'Impact', sans-serif;
   color: azure;
 }
 .App #tier-list .tier-list-game img {
@@ -113,9 +117,7 @@ body {
 }
 .App #tier-list .tier-list-rows .tier-list-row {
   display: flex;
-}
-.App #tier-list .tier-list-rows .tier-list-row:not(:first-child) {
-  border-top: 1px #111 solid;
+  border-bottom: 1px #111 solid;
 }
 .App #tier-list .tier-list-rows .tier-list-row:nth-child(1) .tier-list-row-header {
   background-color: orange;
@@ -134,22 +136,23 @@ body {
 }
 .App #tier-list .tier-list-rows .tier-list-row .tier-list-row-header {
   width: 200px;
-  padding: 10px;
   border-right: 1px #111 solid;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 24px;
   font-weight: 700;
-  height: 120px;
+  min-height: 110px;
   background-color: azure;
 }
 .App #tier-list .tier-list-rows .tier-list-row .tier-list-row-games {
   padding: 10px;
+  min-height: 100px;
   display: flex;
   flex-wrap: wrap;
   background-color: lightgray;
   width: 100%;
+  gap: 10px;
 }
 .App #tier-list .tier-list-rows .add-row-btn {
   padding: 8px 0;
