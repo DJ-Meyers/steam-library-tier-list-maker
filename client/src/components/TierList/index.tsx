@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth/authContext";
-import { DROP_GAME, SET_GAMES } from "../../context/dispatchTypes";
+import { ADD_TIER, DROP_GAME, SET_GAMES } from "../../context/dispatchTypes";
 import { TierlistContext } from "../../context/tierlist/tierlistContext";
 import TierlistGame from "./TierlistGame";
 import TierlistRow from "./TierlistRow";
@@ -37,6 +37,10 @@ const TierList = () => {
         event.dataTransfer.dropEffect = "move";
     }
 
+    const addTier = () => {
+        dispatch({ type: ADD_TIER, payload: {} });
+    }
+
     useEffect(() => {
         setIsLoading(true);
         fetchGames();
@@ -51,7 +55,7 @@ const TierList = () => {
                 {tierlistState.rows.map((row) =>
                     <TierlistRow row={row} key={row.tierName} />
                 )}
-                <div className="add-row-btn">+ Add Row</div>
+                <div className="add-row-btn" onClick={addTier}>+ Add Row</div>
             </div>
             <h3>My Games</h3>
             <div className="tier-list-games" onDrop={handleDrop} onDragOver={handleDragOver}>

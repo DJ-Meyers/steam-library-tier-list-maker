@@ -1,4 +1,4 @@
-import { DROP_GAME, SET_GAMES, START_DRAGGING_GAME } from '../dispatchTypes';
+import { ADD_TIER, DROP_GAME, REMOVE_TIER, RENAME_TIER, SET_GAMES, START_DRAGGING_GAME } from '../dispatchTypes';
 import { TierlistState } from './tierlistContext';
 import { sortByPlaytimeDesc } from './tierlistHelpers';
 
@@ -53,6 +53,52 @@ export const tierlistReducer = (state: TierlistState, action: { type: string, pa
                 games: state.games.filter((g) => g.appid !== game.appid),
                 dragging: null,
                 dragSource: '',
+            }
+        case RENAME_TIER:
+            const newName = action.payload.newName;
+            const oldName = action.payload.oldName;
+
+            if (oldName === newName
+                || newName === ""
+                || newName === "__games__"
+                || state.rows.map((r) => r.tierName).includes(newName)
+            ) {
+                return {
+                    ...state
+                }
+            }
+
+            return {
+                ...state,
+                rows: [...(state.rows.map((r) => 
+                    r.tierName === oldName ?
+                        {
+                            ...r,
+                            tierName: newName
+                        } : r
+                    )
+                )],
+            }
+        case ADD_TIER: 
+            
+            const newTier = {
+                tierName: "Tier " + (state.rows.length + 1),
+                games: []
+            }
+            
+            return {
+                ...state,
+                rows: [
+                    ...state.rows,
+                    newTier
+                ]
+            }
+        case REMOVE_TIER:
+            const removedTierName = action.payload;
+
+            return {
+                ...state,
+                rows: [...(state.rows.filter((r) => r.tierName !== removedTierName))]
             }
         default:
             return state;

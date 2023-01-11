@@ -107,7 +107,7 @@ body {
         max-width: 100%;
         word-wrap: break-word;
         position: relative;
-        font-family: 'Impact', sans-serif;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         color: azure;
       }
       img {
@@ -134,47 +134,124 @@ body {
         border-bottom: 1px #111 solid;
         
 
-        &:nth-child(1) .tier-list-row-header {
+        &:nth-child(1n) .tier-list-row-header {
           background-color: orange;
+          &:hover {
+            background-color: lighten(orange, 10%);
+          }
         }
 
-        &:nth-child(2) .tier-list-row-header {
+        &:nth-child(2n) .tier-list-row-header {
           background-color: purple;
+          &:hover {
+            background-color: lighten(purple, 10%);
+          }
         }
 
-        &:nth-child(3) .tier-list-row-header {
+        &:nth-child(3n) .tier-list-row-header {
           background-color: blue;
+          &:hover {
+            background-color: lighten(blue, 10%);
+          }
         }
 
-        &:nth-child(4) .tier-list-row-header {
+        &:nth-child(4n) .tier-list-row-header {
           background-color: green;
+          &:hover {
+            background-color: lighten(green, 10%);
+          }
         }
 
-        &:nth-child(5) .tier-list-row-header {
+        &:nth-child(5n) .tier-list-row-header {
           background-color: gray;
+          &:hover {
+            background-color: lighten(gray, 10%);
+          }
+        }
+
+        &:nth-child(6n) .tier-list-row-header {
+          background-color: red;
+
+          &:hover {
+            background-color: lighten(red, 10%);
+          }
         }
 
 
         .tier-list-row-header {
-          width: 200px;
+          position: relative;
+          flex: 0 0 180px;
           border-right: 1px #111 solid;
           display: flex;
           justify-content: center;
           align-items: center;
           font-size: 24px;
           font-weight: 700;
-          min-height: 110px;
-          background-color: azure;
+          min-height: 116px;
+          color: azure;
+          background-color: red;
+          &:hover {
+            color: lighten(azure, 10%);
+            .remove-tier-btn {
+              display: block;
+              position: absolute;
+              top: -4px;
+              right: 4px;
+              background-color: transparent;
+              border: none;
+              -webkit-text-stroke: .5px #111;
+              color: azure;
+              font-size: 24px;
+              font-weight: 700;
+              font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+              cursor: pointer
+            }
+
+            .tier-drag-handle {
+              display: inline;
+              position: absolute;
+              left: 4px;
+              font-size: 16px;
+              line-height: 16px;
+              padding-left: 4px;
+              padding-bottom: 3px;
+              letter-spacing: -3px;
+              font-weight: 700;
+              vertical-align: middle;
+              cursor:grab;
+            }
+
+          }
+
+          .remove-tier-btn, .tier-drag-handle {
+            display: none;
+          }
+          
+          .tier-name {
+            padding: 8px;
+            vertical-align: middle;
+            line-height: 24px;
+            cursor:pointer;
+          }
+
+          input[type=text] {
+            height: 30px;
+            width: 120px;
+            border-radius: 4px;
+            border: none;
+            padding: 4px 8px;
+            background-color: azure;
+          }
         }
 
         .tier-list-row-games {
-          padding: 10px;
+          padding: 8px;
           min-height: 100px;
           display: flex;
           flex-wrap: wrap;
           background-color: lightgray;
           width: 100%;
-          gap: 10px;
+          gap: 8px;
         }
       }
 
@@ -194,42 +271,5 @@ body {
         }
       }
     }
-  }
-}
-
-
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
