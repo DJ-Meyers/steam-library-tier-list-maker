@@ -52,8 +52,8 @@ const TierList = () => {
     return (
         <div id="tier-list">
             <div className="tier-list-rows">
-                {tierlistState.rows.map((row) =>
-                    <TierlistRow row={row} key={row.tierName} />
+                {tierlistState.rows.map((row, index) =>
+                    <TierlistRow row={row} index={index} key={row.tierName} />
                 )}
                 <div className="add-row-btn" onClick={addTier}>+ Add Row</div>
             </div>

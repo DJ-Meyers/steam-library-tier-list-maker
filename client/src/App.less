@@ -94,6 +94,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow:hidden;
       cursor: grab;
 
       &.dragging {
@@ -132,50 +133,6 @@ body {
       .tier-list-row {
         display: flex;
         border-bottom: 1px #111 solid;
-        
-
-        &:nth-child(1n) .tier-list-row-header {
-          background-color: orange;
-          &:hover {
-            background-color: lighten(orange, 10%);
-          }
-        }
-
-        &:nth-child(2n) .tier-list-row-header {
-          background-color: purple;
-          &:hover {
-            background-color: lighten(purple, 10%);
-          }
-        }
-
-        &:nth-child(3n) .tier-list-row-header {
-          background-color: blue;
-          &:hover {
-            background-color: lighten(blue, 10%);
-          }
-        }
-
-        &:nth-child(4n) .tier-list-row-header {
-          background-color: green;
-          &:hover {
-            background-color: lighten(green, 10%);
-          }
-        }
-
-        &:nth-child(5n) .tier-list-row-header {
-          background-color: gray;
-          &:hover {
-            background-color: lighten(gray, 10%);
-          }
-        }
-
-        &:nth-child(6n) .tier-list-row-header {
-          background-color: red;
-
-          &:hover {
-            background-color: lighten(red, 10%);
-          }
-        }
 
 
         .tier-list-row-header {
@@ -183,6 +140,7 @@ body {
           flex: 0 0 180px;
           border-right: 1px #111 solid;
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
           font-size: 24px;
@@ -192,45 +150,50 @@ body {
           background-color: red;
           &:hover {
             color: lighten(azure, 10%);
-            .remove-tier-btn {
-              display: block;
-              position: absolute;
-              top: -4px;
-              right: 4px;
-              background-color: transparent;
-              border: none;
-              -webkit-text-stroke: .5px #111;
-              color: azure;
-              font-size: 24px;
-              font-weight: 700;
-              font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-              cursor: pointer
+            .remove-tier-btn, .move-tier-up-btn, .move-tier-down-btn {
+              visibility: visible;
+              cursor: pointer;
             }
-
-            .tier-drag-handle {
-              display: inline;
-              position: absolute;
-              left: 4px;
-              font-size: 16px;
-              line-height: 16px;
-              padding-left: 4px;
-              padding-bottom: 3px;
-              letter-spacing: -3px;
-              font-weight: 700;
-              vertical-align: middle;
-              cursor:grab;
-            }
-
+            
           }
 
-          .remove-tier-btn, .tier-drag-handle {
-            display: none;
+          .remove-tier-btn {
+            visibility: hidden;
+            position: absolute;
+            top: -4px;
+            right: 4px;
+            background-color: transparent;
+            border: none;
+            -webkit-text-stroke: .5px #111;
+            color: azure;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+          }
+
+          .move-tier-up-btn, .move-tier-down-btn {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            visibility: hidden;
+            border: none;
+            font-size: 24px;
+            font-weight: 700;
+            background-color: transparent;
+            color: azure;
+            -webkit-text-stroke: .5px #111;
+          }
+
+
+          .move-tier-down-btn {
+            rotate: 180deg;
           }
           
           .tier-name {
             padding: 8px;
             vertical-align: middle;
             line-height: 24px;
+            font-size: 24px;
+            -webkit-text-stroke: .5px #111;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             cursor:pointer;
           }
 

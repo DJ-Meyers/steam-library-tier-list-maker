@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
 import { IGame, ITierlistRow } from '../../Types';
+import { baseColors, darken } from './tierlistHelpers';
 import { tierlistReducer } from './tierlistReducer';
 
 export type TierlistState = {
@@ -9,15 +10,16 @@ export type TierlistState = {
     dragSource: string,
 };
 
+const { orange, purple, blue, green, gray } = baseColors;
 
 const initialState: TierlistState = {
     games: [],
     rows: [
-        { tierName: "S", games: [] },
-        { tierName: "A", games: [] },
-        { tierName: "B", games: [] },
-        { tierName: "C", games: [] },
-        { tierName: "D", games: [] },
+        { tierName: "S", games: [], color: darken(orange), hoverColor: orange },
+        { tierName: "A", games: [], color: darken(purple), hoverColor: purple },
+        { tierName: "B", games: [], color: darken(blue), hoverColor: blue },
+        { tierName: "C", games: [], color: darken(green), hoverColor: green },
+        { tierName: "D", games: [], color: darken(gray), hoverColor: gray },
     ],
     dragging: null,
     dragSource: '',

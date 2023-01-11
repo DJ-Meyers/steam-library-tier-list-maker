@@ -6,6 +6,8 @@ export interface IGame {
 }
 
 export interface ITierlistRow {
-    tierName: string,
+    tierName: string;
     games: IGame[];
+    color: string;
+    hoverColor: string;
 }

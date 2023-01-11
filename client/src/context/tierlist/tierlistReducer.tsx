@@ -1,6 +1,6 @@
-import { ADD_TIER, DROP_GAME, REMOVE_TIER, RENAME_TIER, SET_GAMES, START_DRAGGING_GAME } from '../dispatchTypes';
+import { ADD_TIER, DROP_GAME, MOVE_TIER_DOWN, MOVE_TIER_UP, REMOVE_TIER, RENAME_TIER, SET_GAMES, START_DRAGGING_GAME } from '../dispatchTypes';
 import { TierlistState } from './tierlistContext';
-import { sortByPlaytimeDesc } from './tierlistHelpers';
+import { baseColors, darken, sortByPlaytimeDesc } from './tierlistHelpers';
 
 export const tierlistReducer = (state: TierlistState, action: { type: string, payload: any }): TierlistState => {
     switch (action.type) {
@@ -83,7 +83,9 @@ export const tierlistReducer = (state: TierlistState, action: { type: string, pa
             
             const newTier = {
                 tierName: "Tier " + (state.rows.length + 1),
-                games: []
+                games: [],
+                color: darken(baseColors.red),
+                hoverColor: baseColors.red,
             }
             
             return {
@@ -94,11 +96,35 @@ export const tierlistReducer = (state: TierlistState, action: { type: string, pa
                 ]
             }
         case REMOVE_TIER:
-            const removedTierName = action.payload;
+            const removedTier = action.payload;
 
             return {
                 ...state,
-                rows: [...(state.rows.filter((r) => r.tierName !== removedTierName))]
+                rows: [...(state.rows.filter((r) => r !== removedTier))]
+            }
+        case MOVE_TIER_UP:
+            const moveUpInitialIndex = state.rows.indexOf(action.payload);
+
+            if (moveUpInitialIndex <= 0) {
+                return {
+                    ...state
+                }
+            }
+            return {
+                ...state,
+                rows: [...state.rows.slice(0, moveUpInitialIndex - 1), action.payload, state.rows[moveUpInitialIndex-1], ...state.rows.slice(moveUpInitialIndex + 1)]
+            }
+        case MOVE_TIER_DOWN:
+            const moveDownInitialIndex = state.rows.indexOf(action.payload);
+
+            if (moveDownInitialIndex === -1 || moveDownInitialIndex >= state.rows.length - 1) {
+                return {
+                    ...state
+                }
+            }
+            return {
+                ...state,
+                rows: [...state.rows.slice(0, moveDownInitialIndex), state.rows[moveDownInitialIndex+1], action.payload, ...state.rows.slice(moveDownInitialIndex + 2)]
             }
         default:
             return state;
