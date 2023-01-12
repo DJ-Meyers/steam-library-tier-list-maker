@@ -1,8 +1,5 @@
-import React, { useContext, useState } from "react";
-import { DROP_GAME } from "../../context/dispatchTypes";
-import { TierlistContext } from "../../context/tierlist/tierlistContext";
-import { IGame, ITierlistRow } from "../../Types";
-import TierlistGame from "./TierlistGame";
+import React from "react";
+import { ITierlistRow } from "../../Types";
 import TierlistRowGames from "./TierlistRowGames";
 import TierlistRowHeader from "./TierlistRowHeader";
 

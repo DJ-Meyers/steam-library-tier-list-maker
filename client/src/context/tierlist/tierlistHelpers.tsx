@@ -6,11 +6,14 @@ export const sortByPlaytimeDesc = (games: IGame[]): IGame[] => {
 
 export const darken = (color: string): string => {
     const r = color.slice(1, 3), g = color.slice(3, 5), b = color.slice(5, 7); 
-
-    return `rgba(${hexToDecimal(r)}, ${hexToDecimal(g)}, ${hexToDecimal(b)}, 75%)`;
+    const rgb = [r, g, b]
+    const output = "#" + rgb.map((hex) => hexToDecimal(hex)).map((dec) => decimalToHex(.75 * dec)).join("");
+    return output;
 }
 
 const hexToDecimal = (hex: string): number => hex.length === 2 ? parseInt(hex, 16) : 0;
+
+const decimalToHex = (dec: number): string => (dec < 16 ? "0" : "") + Math.round((dec)).toString(16).toUpperCase();
 
 export const baseColors = {
     orange: "#FF8C00",

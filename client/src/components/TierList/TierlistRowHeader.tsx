@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { MOVE_TIER_DOWN, MOVE_TIER_UP, REMOVE_TIER, RENAME_TIER } from "../../context/dispatchTypes";
+import { MOVE_TIER_DOWN, MOVE_TIER_UP, REMOVE_TIER, RENAME_TIER, SET_TIER_COLOR } from "../../context/dispatchTypes";
 import { TierlistContext } from "../../context/tierlist/tierlistContext";
 import { ITierlistRow } from "../../Types";
 
@@ -11,14 +11,18 @@ type TierlistRowHeaderProps = {
 const TierlistRowHeader = ({ row, index }: TierlistRowHeaderProps) => {
 
 
-    const [isEditingTierName, setIsEditingTierName] = useState(false);
     const [isHoveringTierHeader, setIsHoveringTierHeader] = useState(false);
+
+    const [isEditingTierName, setIsEditingTierName] = useState(false);
     const [tierName, setTierName] = useState(row.tierName);
 
+    const [isEditingTierColor, setIsEditingTierColor] = useState(false);
+    const [tierColor, setTierColor] = useState(row.hoverColor);
     const { tierlistState, dispatch } = useContext(TierlistContext);
 
-    const startEditing = () => {
+    const startEditingTierName = () => {
         setIsEditingTierName(true);
+        setIsEditingTierColor(false);
     }
 
     const changeTierName: React.FocusEventHandler = (event: React.FocusEvent) => {
@@ -47,6 +51,17 @@ const TierlistRowHeader = ({ row, index }: TierlistRowHeaderProps) => {
         setIsHoveringTierHeader(false);
     }
 
+    const startEditingTierColor = () => {
+        setIsEditingTierColor(true);
+        setIsEditingTierName(false);
+    }
+
+    const changeTierColor: React.FocusEventHandler = (event: React.FocusEvent) => {
+        event.preventDefault();
+        dispatch({ type: SET_TIER_COLOR, payload: { row, color: tierColor } });
+        setIsEditingTierColor(false);
+    }
+
     return (
         <div className="tier-list-row-header" id={`${row.tierName}-header`}
             style={{ backgroundColor: isHoveringTierHeader ? row.hoverColor : row.color }}
@@ -54,16 +69,33 @@ const TierlistRowHeader = ({ row, index }: TierlistRowHeaderProps) => {
             onMouseLeave={onMouseLeave}
         >
             <button className="remove-tier-btn" onClick={removeTier}>&times;</button>
-            {index > 0 ? <button className="move-tier-up-btn" onClick={moveTierUp} >&#8963;</button> : <button className="move-tier-up-btn" style={{visibility: "hidden"}} >&#8963;</button>}
+            {isEditingTierColor ?
+                (
+                    <input type="color" autoFocus className="change-tier-color-input"
+                        value={tierColor}
+                        onChange={(e) => setTierColor(e.target.value)}
+                        onBlur={changeTierColor}
+                    />
+                ) : (
+                    <button className="change-tier-color-btn" onClick={startEditingTierColor}>&#127912;</button>
+                )
+            }
+            {index > 0 ?
+                (
+                    <button className="move-tier-up-btn" onClick={moveTierUp} >&#8963;</button>
+                ) : (
+                    <button className="move-tier-up-btn" style={{ visibility: "hidden" }} >&#8963;</button>
+                )
+            }
             {isEditingTierName ?
                 (
-                    <input autoFocus type="text" placeholder={row.tierName} value={tierName}
+                    <input className="change-tier-name-input" autoFocus type="text" placeholder={row.tierName} value={tierName}
                         onChange={(e) => setTierName(e.target.value)}
                         onBlur={changeTierName}
                         onKeyUp={(e) => e.target instanceof HTMLInputElement && e.key === "Enter" && e.target.blur()}
                     />
                 ) : (
-                    <span className="tier-name" onClick={startEditing}>
+                    <span className="tier-name" onClick={startEditingTierName}>
                         {row.tierName}
                     </span>
                 )

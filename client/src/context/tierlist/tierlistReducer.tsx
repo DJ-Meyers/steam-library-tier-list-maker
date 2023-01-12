@@ -1,4 +1,4 @@
-import { ADD_TIER, DROP_GAME, MOVE_TIER_DOWN, MOVE_TIER_UP, REMOVE_TIER, RENAME_TIER, SET_GAMES, START_DRAGGING_GAME } from '../dispatchTypes';
+import { ADD_TIER, DROP_GAME, MOVE_TIER_DOWN, MOVE_TIER_UP, REMOVE_TIER, RENAME_TIER, SET_GAMES, SET_TIER_COLOR, START_DRAGGING_GAME } from '../dispatchTypes';
 import { TierlistState } from './tierlistContext';
 import { baseColors, darken, sortByPlaytimeDesc } from './tierlistHelpers';
 
@@ -125,6 +125,25 @@ export const tierlistReducer = (state: TierlistState, action: { type: string, pa
             return {
                 ...state,
                 rows: [...state.rows.slice(0, moveDownInitialIndex), state.rows[moveDownInitialIndex+1], action.payload, ...state.rows.slice(moveDownInitialIndex + 2)]
+            }
+        case SET_TIER_COLOR:
+            const newColor = action.payload.color;
+            const hexRegex = new RegExp("^#([A-Fa-f0-9]{6})$");
+
+            if (!hexRegex.test(newColor)) {
+                return {
+                    ...state
+                }
+            }
+
+            return {
+                ...state,
+                rows: [...(state.rows.map((r) => r !== action.payload.row ?
+                    r : {
+                        ...r,
+                        color: darken(newColor),
+                        hoverColor: newColor
+                    }))]
             }
         default:
             return state;

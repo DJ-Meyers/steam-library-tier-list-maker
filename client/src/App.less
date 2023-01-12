@@ -150,9 +150,10 @@ body {
           background-color: red;
           &:hover {
             color: lighten(azure, 10%);
-            .remove-tier-btn, .move-tier-up-btn, .move-tier-down-btn {
+            .remove-tier-btn, .move-tier-up-btn, .move-tier-down-btn, .change-tier-color-btn, .change-tier-color-input {
               visibility: visible;
               cursor: pointer;
+
             }
             
           }
@@ -182,11 +183,29 @@ body {
             -webkit-text-stroke: .5px #111;
           }
 
+          .change-tier-color-btn, .change-tier-color-input {
+            visibility: hidden;
+            position: absolute;
+            left: 4px;
+            vertical-align: middle;
+          }
 
           .move-tier-down-btn {
             rotate: 180deg;
           }
-          
+
+          .change-tier-color-btn {
+            border: none;
+            background-color: transparent;
+          }
+
+          .change-tier-color-input {
+            height: 30px;
+            padding: 1px;
+            width: 30px;
+            background-color: azure;
+          }
+
           .tier-name {
             padding: 8px;
             vertical-align: middle;
@@ -197,9 +216,9 @@ body {
             cursor:pointer;
           }
 
-          input[type=text] {
+          .change-tier-name-input {
             height: 30px;
-            width: 120px;
+            width: 100px;
             border-radius: 4px;
             border: none;
             padding: 4px 8px;

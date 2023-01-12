@@ -10,3 +10,4 @@ export const ADD_TIER = "ADD_TIER";
 export const REMOVE_TIER = "REMOVE_TIER";
 export const MOVE_TIER_UP = "MOVE_TIER_UP";
 export const MOVE_TIER_DOWN = "MOVE_TIER_DOWN";
+export const SET_TIER_COLOR = "SET_TIER_COLOR";
