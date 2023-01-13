@@ -3,6 +3,7 @@ export interface IGame {
     img_icon_url: string,
     playtime_forever: number,
     appid: number,
+    rtime_last_played: number
 }
 
 export interface ITierlistRow {

@@ -1,13 +1,13 @@
-import { ADD_TIER, DROP_GAME, MOVE_TIER_DOWN, MOVE_TIER_UP, REMOVE_TIER, RENAME_TIER, SET_GAMES, SET_TIER_COLOR, START_DRAGGING_GAME } from '../dispatchTypes';
+import { ADD_TIER, DROP_GAME, MOVE_TIER_DOWN, MOVE_TIER_UP, REMOVE_GAME, REMOVE_TIER, RENAME_TIER, SET_GAMES, SET_SORT_BY, SET_TIER_COLOR, START_DRAGGING_GAME } from '../dispatchTypes';
 import { TierlistState } from './tierlistContext';
-import { baseColors, darken, sortByPlaytimeDesc } from './tierlistHelpers';
+import { baseColors, darken, sortGames } from './tierlistHelpers';
 
 export const tierlistReducer = (state: TierlistState, action: { type: string, payload: any }): TierlistState => {
     switch (action.type) {
         case SET_GAMES:
             return {
                 ...state,
-                games: sortByPlaytimeDesc(action.payload),
+                games: sortGames(action.payload, state.sortBy),
             }
         case START_DRAGGING_GAME:
             return {
@@ -16,43 +16,58 @@ export const tierlistReducer = (state: TierlistState, action: { type: string, pa
                 dragSource: action.payload.source,
             }
         case DROP_GAME:
-            const game = action.payload.data;
+            const droppedGame = action.payload.data;
             const target = action.payload.target;
-
-            if (target === state.dragSource) {
-                return {
-                    ...state
-                }
-            }
+            const insertIndex = action.payload.insertIndex;
 
             if (target === "__games__") {
                 return {
                     ...state,
                     rows: [...(state.rows.map((r) => {
-                        return {...r, games: r.games.filter((g) => g.appid !== game.appid)}
+                        return {...r, games: r.games.filter((g) => g.appid !== droppedGame.appid)}
                     }))],
-                    games: sortByPlaytimeDesc([...state.games, game]),
+                    games: sortGames([...state.games, droppedGame], state.sortBy),
                     dragging: null,
                     dragSource: ''
                 }
             }
-            // Remove 
+
             return {
                 ...state,
                 rows: [...(state.rows.map((r) => 
                     r.tierName === target ?
                         {
                             ...r,
-                            games: [...r.games, game]
+                            games: insertIndex === r.games.length ?
+                                [...r.games.filter((g) => g.appid !== droppedGame.appid), droppedGame] : 
+                                [...r.games.filter((g) => g.appid !== droppedGame.appid).slice(0, insertIndex), droppedGame, ...r.games.filter((g) => g.appid !== droppedGame.appid).slice(insertIndex)]
                         } : {
                             ...r,
-                            games: r.games.filter((g) => g.appid !== game.appid)
+                            games: r.games.filter((g) => g.appid !== droppedGame.appid)
                         }
                     )
                 )],
-                games: state.games.filter((g) => g.appid !== game.appid),
+                games: state.games.filter((g) => g.appid !== droppedGame.appid),
                 dragging: null,
                 dragSource: '',
+            }
+        case REMOVE_GAME:
+            const { removeFrom, removedGame } = action.payload;
+            if (removeFrom === "__games__") {
+                return {
+                    ...state,
+                    games: state.games.filter((g) => g.appid !== removedGame.appid)
+                }
+            }
+
+            return {
+                ...state,
+                games: sortGames([...state.games, removedGame], state.sortBy),
+                rows: [...state.rows.map((r) => r.games.includes(removedGame) ? {
+                        ...r,
+                        games: r.games.filter((g) => g.appid !== removedGame.appid)
+                    } : r
+                )]
             }
         case RENAME_TIER:
             const newName = action.payload.newName;
@@ -144,6 +159,12 @@ export const tierlistReducer = (state: TierlistState, action: { type: string, pa
                         color: darken(newColor),
                         hoverColor: newColor
                     }))]
+            }
+        case SET_SORT_BY:
+            return {
+                ...state,
+                sortBy: action.payload,
+                games: [...sortGames(state.games, action.payload)]
             }
         default:
             return state;

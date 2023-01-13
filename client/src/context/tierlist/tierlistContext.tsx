@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
 import { IGame, ITierlistRow } from '../../Types';
-import { baseColors, darken } from './tierlistHelpers';
+import { baseColors, darken, SortType } from './tierlistHelpers';
 import { tierlistReducer } from './tierlistReducer';
 
 export type TierlistState = {
@@ -8,6 +8,7 @@ export type TierlistState = {
     rows: ITierlistRow[],
     dragging: IGame | null,
     dragSource: string,
+    sortBy: SortType
 };
 
 const { orange, purple, blue, green, gray } = baseColors;
@@ -23,6 +24,7 @@ const initialState: TierlistState = {
     ],
     dragging: null,
     dragSource: '',
+    sortBy: SortType.MostPlayed
 };
 
 const TierlistContext = createContext<{

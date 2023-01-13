@@ -18,6 +18,7 @@ const TierlistRowHeader = ({ row, index }: TierlistRowHeaderProps) => {
 
     const [isEditingTierColor, setIsEditingTierColor] = useState(false);
     const [tierColor, setTierColor] = useState(row.hoverColor);
+    
     const { tierlistState, dispatch } = useContext(TierlistContext);
 
     const startEditingTierName = () => {
